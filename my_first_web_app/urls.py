@@ -13,42 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.http import HttpResponse
+
 from django.urls import path
-from django.shortcuts import render
-from random import randint
-
-def home_page(request):
-    context = {'name': 'Adam Cote'}
-    response = render(request, 'index.html', context)
-    return HttpResponse(response)
-
-def portfolio(request):
-    image_urls = []
-    for i in range(5):
-        random_number = randint(0,100)
-        image_urls.append("https://picsum.photos/400/600/?image={}".format(random_number))
-
-    context = {'gallery_images': image_urls}
-    response = render (request, 'gallery.html',context)
-    return HttpResponse(response)
-def about(request):
-    context = {
-        'skills': ['programming', 'hockey', 'video games'],
-        'interests': ['hockey', 'coding', 'the internet']
-    }
-    response = render(request, 'about.html', context)
-    return HttpResponse(response)
-
-
-def favourites(request):
-    context = { 'favelink': ['http://www.reddit.com',"http://www.twitter.com"]}
-    response = render(request, 'favourites.html', context)
-    return HttpResponse(response)
+from my_first_web_app import views
 
 urlpatterns = [
-    path('home/', home_page),
-    path('portfolio/', portfolio),
-    path('about/',about),
-    path('favourites/', favourites)
+    path('', views.root),
+    path('gallery/',views.gallery),
+    path('home/', views.home_page),
+    path('portfolio/', views.portfolio),
+    path('about/',views.about),
+    path('favourites/', views.favourites)
 ]
