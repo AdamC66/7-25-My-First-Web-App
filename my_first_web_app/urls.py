@@ -32,8 +32,23 @@ def portfolio(request):
     context = {'gallery_images': image_urls}
     response = render (request, 'gallery.html',context)
     return HttpResponse(response)
+def about(request):
+    context = {
+        'skills': ['programming', 'hockey', 'video games'],
+        'interests': ['hockey', 'coding', 'the internet']
+    }
+    response = render(request, 'about.html', context)
+    return HttpResponse(response)
+
+
+def favourites(request):
+    context = { 'favelink': ['http://www.reddit.com',"http://www.twitter.com"]}
+    response = render(request, 'favourites.html', context)
+    return HttpResponse(response)
 
 urlpatterns = [
     path('home/', home_page),
     path('portfolio/', portfolio),
+    path('about/',about),
+    path('favourites/', favourites)
 ]
