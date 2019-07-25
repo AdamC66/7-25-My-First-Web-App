@@ -15,10 +15,25 @@ Including another URLconf
 """
 from django.http import HttpResponse
 from django.urls import path
+from django.shortcuts import render
+from random import randint
 
 def home_page(request):
-    return HttpResponse("Hi, this is the home page")
+    context = {'name': 'Adam Cote'}
+    response = render(request, 'index.html', context)
+    return HttpResponse(response)
+
+def portfolio(request):
+    image_urls = []
+    for i in range(5):
+        random_number = randint(0,100)
+        image_urls.append("https://picsum.photos/400/600/?image={}".format(random_number))
+
+    context = {'gallery_images': image_urls}
+    response = render (request, 'gallery.html',context)
+    return HttpResponse(response)
 
 urlpatterns = [
-    path('home/', home_page)
+    path('home/', home_page),
+    path('portfolio/', portfolio),
 ]
